@@ -37,3 +37,41 @@ const renderCharacters = characters => {
 }
 
 const goToCharacterPage = id => window.location = `/character.html?id=${id}`
+
+//Films
+document.addEventListener('DOMContentLoaded', getfilms)
+
+async function getfilms() {
+  let url = 'https://swapi2.azurewebsites.net/api/films';
+
+  try {
+    const fetchedfilms = await fetch(url)
+      .then(res => res.json())
+    films.push(...fetchedfilms);
+  }
+  catch (ex) {
+    console.error("Error reading films.", ex.message);
+  }
+  console.log("All the films are ", films)
+  renderfilms(films);
+}
+
+const filterfilms = () => {
+  const searchString = document.querySelector("#searchString").value;
+  const re = new RegExp(searchString, "i");
+  matchingfilms = films.filter(film => re.test(film.title))
+  renderfilms(matchingfilms);
+}
+
+const renderfilms = films => {
+  const divs = films.map(film => {
+    const el = document.createElement('div');
+    el.addEventListener('click', () => goTofilmPage(film.id));
+    el.textContent = film.title;
+    return el;
+  })
+  filmsList.replaceChildren(...divs)
+}
+
+const goTofilmPage = id => window.location = `/film.html?id=${id}`
+//END FILMS
