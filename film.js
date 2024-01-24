@@ -69,7 +69,6 @@ const renderFilm = film => {
   episodeSpan.textContent = film?.episode_id;
   const charsLis = film?.chars?.map(char => `<li><a href="/character.html?id=${char?.id}">${char?.name}</li>`);
   const planetsLis = film?.planets?.map(planet => `<li><a href="/planet.html?id=${planet?.id}">${planet?.name}</li>`);
-  console.log(charsLis);
   charsUl.innerHTML = charsLis.join("");
   planetsUl.innerHTML = planetsLis.join("");
 }

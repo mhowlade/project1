@@ -10,9 +10,18 @@ p {
   padding: 0;
 }
 
+body {
+  background-image: url("https://t3.ftcdn.net/jpg/01/02/88/40/360_F_102884000_9nDhPvgQwwaNgDWbAwUJVR0puNDOMYhL.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 :root {
   font-family: Arial, Helvetica, sans-serif;
-  --dark1: black;
+  --dark1: rgb(0, 255, 255);
   --light1: white;
   --dark2: darkblue;
   --light2: lightblue;
