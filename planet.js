@@ -36,18 +36,37 @@ async function fetchPlanet(id) {
 }
 
 async function fetchCharacter(id) {
+  //Check char data for this planet
+  const data = sessionStorage.getItem("planet" + id +"CharData");
+  if (data != null)
+  {
+    console.log("we have local char data");
+    return JSON.parse(data);
+  }
   const url = `${baseUrl}/planets/${id}/characters`;
   const characters = await fetch(url).then((res) => res.json());
+  //save to local storage
+  const cIdsNames = characters?.map(char => ({id: char?.id, name: char?.name}));
+  sessionStorage.setItem("planet" + id + "CharData",JSON.stringify(cIdsNames));
   return characters;
 }
 
 async function fetchFilms(id) {
+  //Check film data for this planet
+  const data = sessionStorage.getItem("planet" + id +"FilmData");
+  if (data != null)
+  {
+    console.log("we have local film data");
+    return JSON.parse(data);
+  }
   const url = `${baseUrl}/planets/${id}/films`;
   const films = await fetch(url).then((res) => res.json());
+  //save to local storage
+  const fIdsNames = films?.map(film => ({id: film?.id, title: film?.title}));
+  sessionStorage.setItem("planet" + id + "FilmData",JSON.stringify(fIdsNames));
   return films;
 }
 const renderPlanet = (planet) => {
-  console.log(planet);
   document.title = `SWAPI - ${planet?.name}`; // Just to make the browser tab say their name
   nameH1.textContent = planet?.name;
   climateSpan.textContent = planet?.climate;
