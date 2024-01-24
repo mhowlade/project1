@@ -1,17 +1,10 @@
-// let nameH1;
-// let birthYearSpan;
-// let heightSpan;
-// let massSpan;
-// let filmsDiv;
-// let planetDiv;
-
 let filmName;
 let releaseDateSpan;
 let directorSpan;
 let episodeSpan;
 //Lists of links
 let charsUl;
-let filmsUl;
+let planetsUl;
 //Films links
 let charsDiv
 //Plants links
@@ -26,7 +19,7 @@ addEventListener('DOMContentLoaded', () => {
   directorSpan = document.querySelector('span#director');
   episodeSpan = document.querySelector('span#episode');
   charsUl = document.querySelector('#characters>ul');
-  filmsUl = document.querySelector('#films>ul');
+  planetsUl = document.querySelector('#planets>ul');
   const sp = new URLSearchParams(window.location.search)
   const id = sp.get('id')
   getFilm(id)
@@ -74,17 +67,9 @@ const renderFilm = film => {
   releaseDateSpan.textContent = film?.release_date;
   directorSpan.textContent = film?.director;
   episodeSpan.textContent = film?.episode_id;
-  const charsLis = film?.chars?.map(char => `<li> <a href="/character.html?id=${char?.id}">${char?.name}`);
-  const planetsLis = film?.planets?.map(planet => `<li> <a href="/planet.html?id=${planet?.id}">${planet?.name}`);
+  const charsLis = film?.chars?.map(char => `<li><a href="/character.html?id=${char?.id}">${char?.name}</li>`);
+  const planetsLis = film?.planets?.map(planet => `<li><a href="/planet.html?id=${planet?.id}">${planet?.name}</li>`);
+  console.log(charsLis);
+  charsUl.innerHTML = charsLis.join("");
+  planetsUl.innerHTML = planetsLis.join("");
 }
-
-// const renderFilm = film => {
-//   document.title = `SWAPI - ${film?.name}`;  // Just to make the browser tab say their name
-//   nameH1.textContent = film?.name;
-//   heightSpan.textContent = film?.height;
-//   massSpan.textContent = film?.mass;
-//   birthYearSpan.textContent = film?.birth_year;
-//   homeworldSpan.innerHTML = `<a href="/planet.html?id=${film?.homeworld.id}">${film?.homeworld.name}</a>`;
-//   const filmsLis = film?.films?.map(film => `<li><a href="/film.html?id=${film.id}">${film.title}</li>`)
-//   filmsUl.innerHTML = filmsLis.join("");
-// }
