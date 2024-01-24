@@ -1,3 +1,4 @@
+
 let filmName;
 let releaseDateSpan;
 let directorSpan;
@@ -41,6 +42,8 @@ async function getFilm(id) {
   renderFilm(film);
 
 }
+
+
 async function fetchFilm(id) {
   let filmUrl = `${baseUrl}/${id}`;
   return await fetch(filmUrl)
@@ -48,16 +51,36 @@ async function fetchFilm(id) {
 }
 
 async function fetchChars(id) {
+  //Check if we already have char data for this film
+  const data = sessionStorage.getItem("film" + id +"CharData");
+  if (data != null)
+  {
+    console.log("we have local char data");
+    return JSON.parse(data);
+  }
   const url = `${baseUrl}/${id}/characters`;
   const chars = await fetch(url)
-    .then(res => res.json())
+    .then(res => res.json());
+  //save to local storage
+  const cIdsNames = chars?.map(char => ({id: char?.id, name: char?.name}));
+  sessionStorage.setItem("film" + id + "CharData",JSON.stringify(cIdsNames));
   return chars;
 }
 
 async function fetchPlanets(id) {
+  //Check if we already have planet data for this film
+  const data = sessionStorage.getItem("film" + id +"PlanetData");
+  if (data != null)
+  {
+    console.log("we have local planet data");
+    return JSON.parse(data);
+  }
   const url = `${baseUrl}/${id}/planets`;
   const planets = await fetch(url)
     .then(res => res.json())
+  //save to local storage
+  const pIdsNames = planets?.map(planet => ({id: planet?.id, name: planet?.name}));
+  sessionStorage.setItem("film" + id + "PlanetData",JSON.stringify(pIdsNames))
   return planets;
 }
 
